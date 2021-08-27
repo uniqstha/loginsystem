@@ -84,7 +84,7 @@ def signup():
             'Full_name': fullname.get(),
             'Age': age.get(),
             'Address': address.get(),
-            'Gender': var.get(),
+            'Gender': gender.get(),
             'Email': email.get(),
             'Password': password.get()
 
@@ -122,24 +122,14 @@ def signup():
     age.place(x=720, y=230)
     address = Entry(root2, width=40, border=0, font=('Consolas', 15))
     address.place(x=180, y=320)
+    gender = Entry(root2, width=40, border=0, font=('Consolas', 15))
+    gender.place(x=720, y=320)
 
     email = Entry(root2, width=40, border=0, font=('Consolas', 15))
     email.place(x=180, y=410)
     password = Entry(root2, width=40, border=0, font=('Consolas', 15))
     password.place(x=720, y=410)
-    submit_btn = Button(root2, text="SUBMIT", font=('Consolas', 15), cursor='hand2',
-                        bg="#834dd6", border=0, activebackground="#834dd6", padx=22, pady=10, )
-    var = StringVar()
-    r1 = Radiobutton(root2, text="Male", bg='white', activebackground='white', font=('Consolas', 15), value='Male',
-                     variable=var)
-    r1.deselect()
-    r1.place(x=720, y=320)
-    r2 = Radiobutton(root2, text="Female", bg='white', activebackground='white', font=('Consolas', 15), value='Female',
-                     variable=var)
-    r2.place(x=820, y=320)
-    r3 = Radiobutton(root2, text="other", bg='white', activebackground='white', font=('Consolas', 15), value="Others",
-                     variable=var)
-    r3.place(x=920, y=320)
+
 
     check = IntVar()
     checkbtn = Checkbutton(root2, text="Terms and Conditions", font=('Consolas', 20), bg="white",

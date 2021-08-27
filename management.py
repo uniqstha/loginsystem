@@ -10,7 +10,7 @@ from tkinter import ttk
 
 
 root=Tk()
-root.geometry("1150x768+185+10")
+root.geometry("1366x768+60+10")
 root.title("Contact")
 root.resizable(0, 0)
 # root.iconbitmap('./images/3.ico')
@@ -77,64 +77,75 @@ def update():
         messagebox.showinfo("Error","Please select employee")
     else:
         global my_img
-        global main
-        main = Toplevel()
-        main.geometry("1366x768+60+10")
-        main.title("Login")
-        main.resizable(0, 0)
+        global root1
+        root1 = Toplevel()
+        root1.geometry("1366x768+60+10")
+        root1.title("Login")
+        root1.resizable(0, 0)
 
-        conn = sqlite3.connect('ContactInfo.db')
+        conn = sqlite3.connect('info.db')
         c = conn.cursor()
         record_id = employeeID.get()
-        c.execute("SELECT*from addresses WHERE oid = " + record_id)
+        c.execute("SELECT*from information WHERE oid = " + record_id)
         records = c.fetchall()
-        global first_name
-        global last_name
-        global gender
-        global age
+        global fullname
         global address
-        global contact
+        global age
+        global gender
+        global email
+        global Password
 
-        # my_img = ImageTk.PhotoImage(Image.open('images/update.png'))
-        # my_label=Label(main,image=my_img).pack()
-        first_name_lbl = Label(main, text="First Name", font=('Consolas', 15), bg="white")
-        first_name_lbl.place(x=180, y=200)
-        last_name_lbl = Label(main, text="Last_name", font=('Consolas', 15), bg="white")
-        last_name_lbl.place(x=720, y=200)
-        gender_lbl = Label(main, text="Gender", font=('Consolas', 15), bg="white")
-        gender_lbl.place(x=180, y=290)
-        age_lbl = Label(main, text="Age", font=('Consolas', 15), bg="white")
-        age_lbl.place(x=720, y=290)
-        address_lbl = Label(main, text="Address", font=('Consolas', 15), bg="white")
-        address_lbl.place(x=180, y=380)
-        contact_lbl = Label(main, text="Contact", font=('Consolas', 15), bg="white")
-        contact_lbl.place(x=720, y=380)
+        my_img = ImageTk.PhotoImage(Image.open('signup.png'))
+        my_label=Label(root1,image=my_img).pack()
+        fullname_lbl = Label(root1, text="Full Name", font=('Consolas', 15), bg="white")
+        fullname_lbl.place(x=180, y=200)
+        age_lbl = Label(root1, text="Age", font=('Consolas', 15), bg="white")
+        age_lbl.place(x=720, y=200)
+        address_lbl = Label(root1, text="Address", font=('Consolas', 15), bg="white")
+        address_lbl.place(x=180, y=290)
+        gender_lbl = Label(root1, text="Gender", font=('Consolas', 15), bg="white")
+        gender_lbl.place(x=720, y=290)
+        email_lbl = Label(root1, text="Email", font=('Consolas', 15), bg="white")
+        email_lbl.place(x=180, y=380)
+        password_lbl = Label(root1, text="Password", font=('Consolas', 15), bg="white")
+        password_lbl.place(x=720, y=380)
 
-        first_name = Entry(main, width=40, border=0, font=('Consolas', 15))
-        first_name.place(x=180, y=230)
-        last_name = Entry(main, width=40, border=0, font=('Consolas', 15))
-        last_name.place(x=720, y=230)
-        gender = Entry(main, width=40, border=0, font=('Consolas', 15))
-        gender.place(x=180, y=320)
-        age = Entry(main, width=40, border=0, font=('Consolas', 15))
-        age.place(x=720, y=320)
-        address = Entry(main, width=40, border=0, font=('Consolas', 15))
-        address.place(x=180, y=410)
-        contact = Entry(main, width=40, border=0, font=('Consolas', 15))
-        contact.place(x=720, y=410)
+        fullname = Entry(root1, width=40, border=0, font=('Consolas', 15))
+        fullname.place(x=180, y=230)
+        age = Entry(root1, width=40, border=0, font=('Consolas', 15))
+        age.place(x=720, y=230)
+        gender = Entry(root1, width=40, border=0, font=('Consolas', 15))
+        gender.place(x=720, y=320)
+        address = Entry(root1, width=40, border=0, font=('Consolas', 15))
+        address.place(x=180, y=320)
+
+        email = Entry(root1, width=40, border=0, font=('Consolas', 15))
+        email.place(x=180, y=410)
+        password = Entry(root1, width=40, border=0, font=('Consolas', 15))
+        password.place(x=720, y=410)
+
+
+
+        check = IntVar()
+        checkbtn = Checkbutton(root1, text="Terms and Conditions", font=('Consolas', 20), bg="white",
+                               activebackground="white", variable=check, onvalue=1, offvalue=0)
+        checkbtn.deselect()
+        checkbtn.place(x=525, y=540)
+
         for record in records:
-            first_name.insert(0, record[0])
-            last_name.insert(0, record[1])
-            gender.insert(0, record[2])
-            age.insert(0, record[3])
-            address.insert(0, record[4])
-            contact.insert(0, record[5])
-        update_btn = Button(main, text="UPDATE", font=('Consolas', 15), cursor='hand2',
-                         bg="#00bff3", border=0, activebackground="#00bff3", padx=20, pady=10,command=save)
-        update_btn.place(x=550, y=630)
-        clear_btn = Button(main, text="CLEAR", font=('Consolas', 15), cursor='hand2',
-                           bg="#00bff3", border=0, activebackground="#00bff3", padx=25, pady=10,command=clear)
-        clear_btn.place(x=715, y=630)
+            fullname.insert(0, record[0])
+            age.insert(0, record[1])
+            address.insert(0, record[2])
+            gender.insert(0, record[3])
+            email.insert(0, record[4])
+            password.insert(0, record[5])
+        submit_btn = Button(root1, text="SUBMIT", font=('Consolas', 15), cursor='hand2',
+                            bg="#834dd6", border=0, activebackground="#834dd6", padx=22, pady=10,
+                            command=confirm)
+        submit_btn.place(x=544, y=630)
+        exit_btn = Button(root1, text="EXIT", font=('Consolas', 15), cursor='hand2',
+                          bg="#834dd6", border=0, activebackground="#834dd6", padx=25, pady=10, )
+        exit_btn.place(x=715, y=630)
 
 def delete():
     if (employeeID.get()==""):
@@ -153,7 +164,7 @@ def delete():
         os.system("management.py")
 
 def confirm():
-    global main1
+    global root1
 
     conn = sqlite3.connect('info.db')
     c = conn.cursor()
@@ -163,8 +174,8 @@ def confirm():
     conn.commit()
     conn.close()
     employeeID.delete(0, END)
-    main1.destroy()
-    os.system("contact.py")
+    root1.destroy()
+    os.system("management.py")
 
 
 
@@ -213,42 +224,40 @@ def Exit():
 # -------------------------------------
 
 # image
-# myimage=ImageTk.PhotoImage(Image.open('./images/adminmanagement1.png'))
-# Label(image=myimage).pack()
+myimage=ImageTk.PhotoImage(Image.open('management.png'))
+Label(image=myimage).pack()
 
-# label
-id_lbl=Label(root,text="Search Name-",font=('Consolas',13),bg="white")
-id_lbl.place(x=330,y=118)
+
 
 
 # entry
-employeeID=Entry(root,width=25,border=0,font=('Consolas',13))
-employeeID.place(x=450,y=120)
+employeeID=Entry(root,width=55,border=0,font=('Consolas',18))
+employeeID.place(x=180,y=595)
 # entryID = employeeID.get()
 
 
 
 # buttons
 
-searchBTN=Button(root,text="Search",font=('Consolas',13),cursor='hand2',
-                  bg="#00bff3",border=0,activebackground="#00bff3",command = search)
-searchBTN.place(x=710,y=115)
+searchBTN=Button(root,text="Search",font=('Consolas',15),cursor='hand2',padx=35,pady=7,
+                  bg="#cc469d",border=0,activebackground="#cc469d",command = search)
+searchBTN.place(x=1025,y=585)
 
-addEmpBTN=Button(root,text="ADD CONTACT",font=('Consolas',13),cursor='hand2',
-                  bg="#00bff3",border=0,activebackground="#00bff3",padx=50,)
-addEmpBTN.place(x=160,y=670)
+updateBTN=Button(root,text="UPDATE ",font=('Consolas',22),cursor='hand2',padx=20,pady=1,
+                  bg="#6b30a6",border=0,activebackground="#6b30a6",command=update)
+updateBTN.place(x=220,y=650)
 
-updateBTN=Button(root,text="UPDATE CONTACT",font=('Consolas',13),cursor='hand2',
-                  bg="#00bff3",border=0,activebackground="#00bff3",padx=50, command = update)
-updateBTN.place(x=455,y=670)
-deleteBTN=Button(root,text="DELETE CONTACT",font=('Consolas',13),cursor='hand2',
-                  bg="#00bff3",border=0,activebackground="#00bff3",padx=50, command = delete)
-deleteBTN.place(x=768,y=670)
+deleteBTN=Button(root,text="DELETE ",font=('Consolas',22),cursor='hand2',
+                  bg="#9d3ca2",border=0,activebackground="#9d3ca2",padx=20,pady=1, command = delete)
+deleteBTN.place(x=600,y=650)
+refreshBTN=Button(root,text="REFRESH ",font=('Consolas',22),cursor='hand2',
+                  bg="#cc469d",border=0,activebackground="#cc469d",padx=20,pady=1, command = refresh)
+refreshBTN.place(x=980,y=650)
 
 
-refreshBTN=Button(root,text="Refresh",font=('Consolas',13),cursor='hand2',
-                  bg="#00bff3",border=0,activebackground="#00bff3", command = refresh)
-refreshBTN.place(x=925,y=115)
+logoutBTN=Button(root,text="EXIT",font=('Consolas',18),cursor='hand2',padx=20,pady=1,
+                  bg="#cc469d",border=0,activebackground="#cc469d", command = exit)
+logoutBTN.place(x=1122,y=38)
 
 
 
@@ -281,7 +290,7 @@ my_tree.heading("Age", text = "Age", anchor = CENTER)
 my_tree.heading("Address", text = "Address", anchor = CENTER)
 my_tree.heading("Contact",text = "Contact", anchor = CENTER)
 
-my_tree.place(relx=0.1389, rely=0.203, width=840, height=500)
+my_tree.place(x=110,y=90, width=1150, height=420)
 
 
 
